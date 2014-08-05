@@ -19,7 +19,8 @@
 if (!defined('SERVER_ROOT'))
     exit('No direct script access allowed');
 
-class form_struct_Controller extends Controller {
+class form_struct_Controller extends Controller
+{
 
     /**
      *
@@ -33,7 +34,8 @@ class form_struct_Controller extends Controller {
      */
     public $view;
 
-    function __construct() {
+    function __construct()
+    {
         parent::__construct('r3', 'form_struct');
         $this->view->template->show_left_side_bar = FALSE;
 
@@ -45,15 +47,54 @@ class form_struct_Controller extends Controller {
         session::check_login();
     }
 
-    public function dsp_plaintext_form_struct() {
+    public function dsp_form_struct()
+    {
         $v_record_type_code = 'TP04'; //get_request_var('sel_record_type');
         $xml_file_path = $this->view->get_xml_config($v_record_type_code, 'form_struct');
-        $line =simplexml_load_file($xml_file_path);
-        foreach ($line->line as $value) {
-            var_dump($value);
-            echo '<br/>';
+        $data_form_struct = $this->model->data_xml_form_struct($xml_file_path);
+        $VIEW_DATA['data_form_struct'] = $data_form_struct;
+        $this->view->render('form_struct_object_attr', $VIEW_DATA);
+    }
+
+    public function update_form_struct()
+    {
+        
+            $v_record_type_code = 'TP04'; //get_request_var('sel_record_type');
+            $xml_file_path = $this->view->get_xml_config($v_record_type_code, 'form_struct');
+            //var_dump($_POST['arr_line']);
+           // var_dump($_POST['arr_item']);
+            //var_dump($this->_get_arr_line($_POST['arr_line']));
+            $this->model->update_xml_form_struct($xml_file_path,$this->_get_arr_line($_POST['arr_line']),$this->_get_arr_attr_item($_POST['arr_item']));
+            
+            die;
+    }
+
+    private function _get_arr_line($array_line)
+    {
+        $arr_lines = array();
+        foreach ($array_line as $line)
+        {
+            $arr_line = explode('-', $line);
+            $line_id = $arr_line[0];
+            $line_label = $arr_line[1];
+            $arr_lines[$line_id] = $line_label;
         }
-        $this->view->render('form_struct_object_attr');
+        return $arr_lines;
+    }
+
+    private function _get_arr_attr_item($array_item)
+    {
+        $arr_item = array();
+        foreach ($array_item as $item)
+        {
+            $_arrt_attr_item = explode('/', $item);
+            if (isset($arr_item[$_arrt_attr_item[0]]))
+            {
+                $_arrt_attr_item[0] .= '.1';
+            }
+            $arr_item[$_arrt_attr_item[0]] = $_arrt_attr_item[1];
+        }
+        return $arr_item;
     }
 
 }
