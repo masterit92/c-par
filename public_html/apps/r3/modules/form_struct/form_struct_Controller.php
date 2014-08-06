@@ -49,7 +49,7 @@ class form_struct_Controller extends Controller
 
     public function dsp_form_struct()
     {
-        $v_record_type_code = 'TP04'; //get_request_var('sel_record_type');
+        $v_record_type_code = get_request_var('sel_record_type');
         $xml_file_path = $this->view->get_xml_config($v_record_type_code, 'form_struct');
         $data_form_struct = $this->model->data_xml_form_struct($xml_file_path);
         $VIEW_DATA['data_form_struct'] = $data_form_struct;
@@ -58,16 +58,13 @@ class form_struct_Controller extends Controller
 
     public function update_form_struct()
     {
-        
-            $v_record_type_code = 'TP04'; //get_request_var('sel_record_type');
-            $xml_file_path = $this->view->get_xml_config($v_record_type_code, 'form_struct');
-            //var_dump($_POST['arr_line']);
-           // var_dump($_POST['arr_item']);
-            //var_dump($this->_get_arr_line($_POST['arr_line']));
-            $this->model->update_xml_form_struct($xml_file_path,$this->_get_arr_line($_POST['arr_line']),$this->_get_arr_attr_item($_POST['arr_item']));
+        $v_record_type_code = get_request_var('sel_record_type');
+        $xml_file_path = $this->view->get_xml_config($v_record_type_code, 'form_struct');
+        $this->model->update_xml_form_struct($xml_file_path, $this->_get_arr_line($_POST['arr_line']), $this->_get_arr_attr_item($_POST['arr_item']));
     }
-    
-    public function dsp_form_attr_struct(){
+
+    public function dsp_form_attr_struct()
+    {
         $this->view->render('form_struct_item');
     }
 

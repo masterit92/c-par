@@ -4,12 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/home/binhpt/web/e-par/public_html/apps/r3/modules/form_struct/form_struct_views/form_struct_object_attr.php</file>
-            <file>file:/home/binhpt/web/e-par/public_html/apps/r3/modules/form_struct/form_struct_Controller.php</file>
-            <file>file:/home/binhpt/web/e-par/public_html/config.php</file>
-            <file>file:/home/binhpt/web/e-par/public_html/apps/r3/xml-config/TP04/TP04_workflow.xml</file>
-            <file>file:/home/binhpt/web/e-par/public_html/apps/r3/modules/workflow/workflow_Controller.php</file>
             <file>file:/home/binhpt/web/e-par/public_html/apps/r3/xml-config/TP04/TP04_form_struct.xml</file>
             <file>file:/home/binhpt/web/e-par/public_html/apps/r3/modules/form_struct/form_struct_Model.php</file>
+            <file>file:/home/binhpt/web/e-par/public_html/apps/r3/modules/record_type/record_type_views/dsp_plaintext_form_struct.php</file>
         </group>
     </open-files>
 </project-private>

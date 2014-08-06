@@ -1,10 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
-  <line label="Thông tin người kê khai" cols="1">
-    <item type="TextboxName" id="txtName" name="txtName" allownull="no" validate="text" label="Họ tên người làm chứng thực: " default_value="hhh" size="60" view="true"/>
-    <item type="TextboxName" id="txtName" name="txtName" allownull="no" validate="text" label="Họ tên người làm chứng thực: " default_value="hhh" size="60" view="true"/>
+  <line label="Thông tin người kê khai" cols="2">
+    <item type="TextboxDocSEQ" id="txtName" name="txtName" allownull="no" validate="text" label="Họ tên người làm chứng thực: " default_value="" size="60" css="" Event="ConverUpperCase('txtName',this.value)" view="true"/>
+    <item id="demo" name="demo" allownull="yes" validate="phone" label="haha" default_value="demo" size="20" css="123" Event="kk" view="true"/>
   </line>
-  <line label="Số lượng bộ hồ sơ " cols="1">
-    <item type="Textbox" id="txtSoLuongBoHoSo" name="txtSoLuongBoHoSo" allownull="no" validate="number" label="Số lượng bộ hồ sơ:" default_value="" size="30" view="true"/>
+  <line label="demo" cols="1">
+    <item type="Textbox" id="txtDiaChi" name="txtDiaChi" allownull="yes" validate="text" label="Địa chỉ liên hệ:" default_value="" size="50" css="" Event="" view="true"/>
+  </line>
+  <line label="" cols="1">
+    <item type="DropDownList" id="ddlXaPhuong" name="ddlXaPhuong" allownull="yes" validate="ddli" label="Phường" default_value="" size="" css="" Event="" view=""/>
+  </line>
+  <line label="" cols="1">
+    <item type="Textbox" id="txtTinhThanhPho" name="txtTinhThanhPho" allownull="yes" validate="text" label="Tỉnh (thành phố):" default_value="" size="30" css="" Event="" view="true"/>
+  </line>
+  <line label="" cols="1">
+    <item type="TextboxArea" id="txtTenGiayTochungThu" name="txtTenGiayTochungThu" allownull="yes" validate="text" label="Tên giấy tờ chứng thực:" default_value="" size="50" css="" Event="" view="true"/>
+  </line>
+  <line label="" cols="1">
+    <item type="Textbox" id="txtTiengNuoc" name="txtTiengNuoc" allownull="yes" validate="text" label="Tiếng nước:" default_value="" size="30" css="" Event="" view="true"/>
+  </line>
+  <line label="Tài liệu kèm theo" cols="1">
+    <item type="Checkbox" id="ckbBanChungThuc" name="ckbBanChungThuc" allownull="" validate="" label="" default_value="" size="" css="" Event="" view="true"/>
+  </line>
+  <line label="" cols="1">
+    <item type="Checkbox" id="ckbPhieuyeucau" name="ckbPhieuyeucau" allownull="" validate="" label="" default_value="" size="" css="" Event="" view="true"/>
+  </line>
+  <line label="" cols="1">
+    <item type="Checkbox" id="ckbTaiLieuKhac" name="ckbTaiLieuKhac" allownull="" validate="" label="" default_value="" size="" css="" Event="" view="true"/>
+  </line>
+  <line label="" cols="1">
+    <item type="TextboxArea" id="txtTaiLieuKhac" name="txtTaiLieuKhac" allownull="yes" validate="text" label="" default_value="" size="50" css="" Event="" view="true"/>
+  </line>
+  <line label="Số biên lai và lệ phí" cols="1">
+    <item type="Textbox" id="txtSoBienLai" name="txtSoBienLai" allownull="yes" validate="text" label="Số biên lai:" default_value="" size="30" css="" Event="" view="true"/>
+  </line>
+  <line label="" cols="1">
+    <item type="Textbox" id="txtSoLuongBan" name="txtSoLuongBan" allownull="yes" validate="number" label="Số lượng bản chứng thực:" default_value="" size="30" css="" Event="" view="true"/>
+  </line>
+  <line label="" cols="1">
+    <item type="Textbox" id="txtCost" name="txtCost" allownull="yes" validate="money" label="Lệ phí tạm thu:(đồng)" default_value="" size="30" css="" Event="" view="true"/>
+  </line>
+  <line label="Số lượng bộ hồ sơ" cols="1">
+    <item type="Textbox" id="txtSoLuongBoHoSo" name="txtSoLuongBoHoSo" allownull="no" validate="number" label="Số lượng bộ hồ sơ:" default_value="" size="30" css="" Event="" view="true"/>
   </line>
 </form>

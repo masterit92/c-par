@@ -22,19 +22,6 @@ if (!defined('SERVER_ROOT'))
 
 $data_form_struct = $VIEW_DATA['data_form_struct'];
 $i = 0;
-
-$v_record_type_code = 'TP04'; //get_request_var('sel_record_type');
-$xml_file_path = $this->get_xml_config($v_record_type_code, 'form_struct');
-
-if (is_file($xml_file_path))
-{
-    $v_xml_string = file_get_contents($xml_file_path);
-}
-else
-{
-    $v_xml_string = '';
-    $xml_file_path = SERVER_ROOT . 'apps' . DS . $this->app_name . DS . 'xml-config' . DS . $v_record_type_code . DS . $v_record_type_code . '_' . 'form_struct' . '.xml';
-}
 ?>
 <!doctype html>
 <html lang="en">
@@ -42,6 +29,7 @@ else
         <meta charset="utf-8">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
         <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
         <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 
         <style>
@@ -69,32 +57,49 @@ else
                                     <ul class="ui-sortable" id="<?php echo "obj_attr_$i" ?>">
                                         <?php for ($k = 0; $k < $num_atrr; $k++): ?>
                                             <li class="ui-state-default" id="li_attr_<?php echo $i ?>">
+                                                <?php echo __('-Type:') ?>
                                                 <label class="label_attr" type="type" data="<?php echo $line[$k]['item_type'] ?>" line_id="<?php echo $line_id ?>">
-                                                    <?php echo __('-Type:') . $line[$k]['item_type']; ?>
+                                                    <?php echo $line[$k]['item_type']; ?>
                                                 </label>
+                                                <?php echo __('-ID:') ?>
                                                 <label class="label_attr" type="id" data="<?php echo $line[$k]['item_id'] ?>" line_id="<?php echo $line_id ?>">
-                                                    <?php echo __('-ID:') . $line[$k]['item_id']; ?>
+                                                    <?php echo $line[$k]['item_id']; ?>
                                                 </label>
+                                                <?php echo __('-Name:') ?>
                                                 <label class="label_attr" type="name" data="<?php echo $line[$k]['item_id'] ?>" line_id="<?php echo $line_id ?>">
-                                                    <?php echo __('-Name:') . $line[$k]['item_name']; ?>
+                                                    <?php echo $line[$k]['item_name']; ?>
                                                 </label>
+                                                <?php echo __('-Allow Null:') ?>
                                                 <label class="label_attr" type="allownull" data="<?php echo $line[$k]['item_allownull'] ?>" line_id="<?php echo $line_id ?>">
-                                                    <?php echo __('-Allow Null:') . $line[$k]['item_allownull']; ?>
+                                                    <?php echo $line[$k]['item_allownull']; ?>
                                                 </label>
+                                                <?php echo __('-Validate:') ?>
                                                 <label class="label_attr" type="validate" data="<?php echo $line[$k]['item_validate'] ?>" line_id="<?php echo $line_id ?>">
-                                                    <?php echo __('-Validate:') . $line[$k]['item_validate']; ?>
+                                                    <?php echo $line[$k]['item_validate']; ?>
                                                 </label>
+                                                <?php echo __('-Label:') ?>
                                                 <label class="label_attr" type="label" data="<?php echo $line[$k]['item_label'] ?>" line_id="<?php echo $line_id ?>">
-                                                    <?php echo __('-Label:') . $line[$k]['item_label']; ?>
+                                                    <?php echo $line[$k]['item_label']; ?>
                                                 </label>
+                                                <?php echo __('-Default Value:') ?>
                                                 <label class="label_attr" type="default_value" data="<?php echo $line[$k]['item_default_value'] ?>" line_id="<?php echo $line_id ?>">
-                                                    <?php echo __('-Default Value:') . $line[$k]['item_default_value']; ?>
+                                                    <?php $line[$k]['item_default_value']; ?>
                                                 </label>
+                                                <?php echo __('-Size:') ?>
                                                 <label class="label_attr" type="size" data="<?php echo $line[$k]['item_size'] ?>" line_id="<?php echo $line_id ?>">
-                                                    <?php echo __('-Size:') . $line[$k]['item_size']; ?>
+                                                    <?php echo $line[$k]['item_size']; ?>
                                                 </label>
+                                                <?php echo __('-Css:') ?>
+                                                <label class="label_attr" type="css" data="<?php echo $line[$k]['item_css'] ?>" line_id="<?php echo $line_id ?>">
+                                                    <?php echo $line[$k]['item_css']; ?>
+                                                </label>
+                                                <?php echo __('-Event:') ?>
+                                                <label class="label_attr" type="Event" data="<?php echo $line[$k]['item_event'] ?>" line_id="<?php echo $line_id ?>">
+                                                    <?php echo $line[$k]['item_event']; ?>
+                                                </label>
+                                                <?php echo __('-View:') ?>
                                                 <label class="label_attr" type="view" data="<?php echo $line[$k]['item_view'] ?>" line_id="<?php echo $line_id ?>">
-                                                    <?php echo __('-View:') . $line[$k]['item_view']; ?>
+                                                    <?php echo $line[$k]['item_view']; ?>
                                                 </label>
                                                 <button type="button" class="btn_edit_attr"><?php echo __('Edit') ?></button>
                                                 <button type="button" class="remove_attr" id_attr="<?php echo $i ?>"><?php echo __('Remove') ?></button>
@@ -115,6 +120,7 @@ else
         </form>
         <div id="dialog_attr">
             <form>
+                <label><?php echo __('(*) is field require.') ?></label>
                 <label><?php echo __('Type:') ?>
                     <select name="so_attr_type" id="so_attr_type">
                         <option value="TextboxName">TextboxName</option>
@@ -132,11 +138,11 @@ else
                     </select>
                 </label>
                 <label>
-                    <?php echo __('ID:') ?>
-                    <input type="text" name="txt_attr_id" id="txt_attr_id"/>
+                    <?php echo __('ID(*):') ?>
+                    <input type="text" name="txt_attr_id" id="txt_attr_id" />
                 </label>
                 <label>
-                    <?php echo __('Name:') ?>
+                    <?php echo __('Name(*):') ?>
                     <input type="text" name="txt_attr_name" id="txt_attr_name"/>
                 </label>
                 <label>
@@ -170,14 +176,20 @@ else
                     <input type="text" name="txt_attr_size" id="txt_attr_size"/>
                 </label>
                 <label>
+                    <?php echo __('Css:') ?>
+                    <input type="text" name="txt_attr_css" id="txt_attr_css"/>
+                </label>
+                <label>
+                    <?php echo __('Event:') ?>
+                    <input type="text" name="txt_attr_Event" id="txt_attr_Event"/>
+                </label>
+                <label>
                     <?php echo __('View:') ?>
                     <input type="radio" name="rd_attr_view" class="rd_attr_view" value="true" checked/>True
                     <input type="radio" name="rd_attr_view" class="rd_attr_view" value="false"/>False
                 </label>
-                <label>
-                    <button type="button"><?php echo __('OK') ?></button>
-                    <button type="button" id="dialog_attr_cancel"><?php echo __('Cancel') ?></button>
-                </label>
+                <button type="button" id="dialog_attr_btn_ok"><?php echo __('OK') ?></button>
+                <button type="button" id="dialog_attr_cancel"><?php echo __('Cancel') ?></button>
             </form>
         </div>
 
@@ -185,6 +197,8 @@ else
 </body>
 </html>
 <script>
+    var item_edit = null;
+    var add_item_line = null;
     var i = 0;
     if (i <= 0)
     {
@@ -192,28 +206,8 @@ else
     }
     jQuery(document).ready(function($) {
         $('#btn_add_line').on('click', function() {
-            $('#form_struct_object_attr ul:first').append("<li class='ui-state-default ui-sortable-handle obj_line'><?php echo __('Lable Line:') ?><input type='text' class='input_line_label' id='line_id_" + i + "'/><ul class='ui-sortable' id='obj_attr_" + i + "'></ul><button type='button' class='btn_add_object' id_ul='" + i + "'>Add Object</button></li>");
+            $('#form_struct_object_attr ul:first').append("<li class='ui-state-default ui-sortable-handle obj_line'><?php echo __('Lable Line:') ?><input type='text' class='input_line_label' id='line_id_" + i + "'/><ul class='ui-sortable' id='obj_attr_" + i + "'></ul><button type='button' class='btn_add_object' id_ul='" + i + "'>Add Object</button><button type='button' class='btn_remove_object' id_ul='"+i+"'>Remove Object</button></li>");
             i++;
-        });
-        $(document).on('click', '.btn_add_object', function() {
-            var id_obj = $(this).attr('id_ul');
-            var id_ul = '#obj_attr_' + id_obj;
-            var num_li = $(id_ul).children().length;
-            if (num_li >= 2)
-            {
-                $(this).hide();
-                return;
-            }
-            var str = get_form_atrr(i, id_obj);
-            $(id_ul).append("<li class='ui-state-default ui-sortable-handle'>" + str + "</li>");
-            i++;
-            var num_li = $(id_ul).children().length;
-            if (num_li >= 2)
-            {
-                $(this).hide();
-                return;
-            }
-
         });
         //Dag and drop element
         $(function() {
@@ -271,55 +265,9 @@ else
             $(this).parent().parent().remove();
             $('.btn_add_object').show();
         });
-        function get_form_atrr(_i, _id_obj) {
-            var str = '<label line_id="line_id_' + _i + '"><?php echo __('Type:') ?>';
-            str += '<select name="sel_object_type_' + _id_obj + '" id="sel_object_type_' + _id_obj + '">';
-            str += '<option value="TextboxName">TextboxName</option>';
-            str += '<option value="TextboxMoney">TextboxMoney</option>';
-            str += '<option value="Textbox">Textbox</option>';
-            str += '<option value="TextboxDate">TextboxDate</option>';
-            str += '<option value="DropDownList">DropDownList</option>';
-            str += '<option value="RadioButton">RadioButton</option>';
-            str += '<option value="Textarea">Textarea</option>';
-            str += '<option value="Button">Button</option>';
-            str += '<option value="MultiCheckbox">MultiCheckbox</option>';
-            str += '<option value="Checkbox">Checkbox</option>';
-            str += '<option value="TextboxArea">TextboxArea</option>';
-            str += '<option value="TextboxDocSEQ">TextboxDocSEQ</option>';
-            str += '</select></label>';
-            str += '<label line_id="line_id_' + _i + '"><?php echo __('ID:') ?>';
-            str += '<input type="text" name="id_obj_' + _id_obj + '" id="id_obj_' + _id_obj + '"/></label>';
-            str += '<label line_id="line_id_' + _i + '"><?php echo __('Name:') ?>';
-            str += '<input type="text" name="name_obj_' + _id_obj + '" id="name_obj_' + _id_obj + '"/></label>';
-            str += '<label line_id="line_id_' + _i + '"><?php echo __('Allow Null:') ?>';
-            str += '<input type="radio" checked name="allow_obj_' + _id_obj + '" class="allow_obj_' + _id_obj + '" value="Yes"/><?php echo __('Yes') ?>';
-            str += '<input type="radio" name="allow_obj_' + _id_obj + '" class="allow_obj_' + _id_obj + '" value="No"/><?php echo __('No') ?></label>';
-            str += '<label line_id="line_id_' + _i + '"><?php echo __('Validater:') ?>';
-            str += '<select name="validate_obj_' + _id_obj + '" id="validate_obj_' + _id_obj + '">';
-            str += '<option value="text">text</option>';
-            str += '<option value="email">email</option>';
-            str += '<option value="number">number</option>';
-            str += '<option value="phone">phone</option>';
-            str += '<option value="money">money</option>';
-            str += '<option value="date">date</option>';
-            str += '<option value="ddli">ddli</option>';
-            str += '<option value="fax">fax</option>';
-            str += '<option value="numberString">numberString</option>';
-            str += '</select></label>';
-            str += '<label line_id="line_id_' + _i + '"><?php echo __('Label Object:') ?>';
-            str += '<input type="text" name="label_obj_' + _id_obj + '" id="label_obj_' + _id_obj + '"/></label>';
-            str += '<label line_id="line_id_' + _i + '"><?php echo __('Default value:') ?>';
-            str += '<input type="text" name="default_value_obj_' + _id_obj + '" id="default_value_obj_' + _id_obj + '"/></label>';
-            str += '<label line_id="line_id_' + _i + '"><?php echo __('Size:') ?>';
-            str += '<input type="text" name="size_obj_' + _id_obj + '" id="size_obj_' + _id_obj + '"/></label>';
-            str += '<label line_id="line_id_' + _i + '"><?php echo __('View:') ?>';
-            str += '<input type="radio" checked name="view_obj_' + _id_obj + '" class="view_obj_' + _id_obj + '" value="True"/><?php echo __('True') ?>';
-            str += '<input type="radio" name="view_obj_' + _id_obj + '" class="view_obj_' + _id_obj + '" value="False"/><?php echo __('False') ?></label>';
-            str += '<label><button type="button" class="btn_apply_attr"><?php echo __('Apply') ?></button><button type="button" class="btn_attr_cancel"><?php echo __('Cancel') ?></button></label>';
-            return str;
-        }
         $(document).on('click', '.btn_edit_attr', function() {
             var li_parent = $(this).siblings('label');
+            item_edit = li_parent;
             $(li_parent).each(function() {
                 var type_item = $(this).attr('type');
                 switch (type_item)
@@ -353,6 +301,12 @@ else
                     case 'size':
                         $('#txt_attr_size').attr('value', $(this).attr('data'));
                         break;
+                    case 'Event':
+                        $('#txt_attr_Event').attr('value', $(this).attr('data'));
+                        break;
+                    case 'css':
+                        $('#txt_attr_css').attr('value', $(this).attr('data'));
+                        break;
                     case 'view':
                         var checked = '[value="' + $(this).attr('data') + '"]';
                         $('.rd_attr_view').filter(checked).attr('checked', true);
@@ -376,7 +330,109 @@ else
                 duration: 1000
             }
         });
-
+        $('#dialog_attr_btn_ok').click(function() {
+            if (check_input_require('#txt_attr_id') && check_input_require('#txt_attr_name'))
+            {
+                var item_type = $('#so_attr_type option:selected').attr('value');
+                var item_id = $('#txt_attr_id').val();
+                var item_name = $('#txt_attr_name').val();
+                var item_allownull = $('.rd_attr_allownull:checked').val();
+                var item_validate = $('#so_attr_validate option:selected').attr('value');
+                var item_label_obj = $('#txt_attr_label_obj').val();
+                var item_default_value = $('#txt_attr_default_value').val();
+                var item_size = $('#txt_attr_size').val();
+                var item_css = $('#txt_attr_css').val();
+                var item_event = $('#txt_attr_Event').val();
+                var item_view = $('.rd_attr_view:checked').val();
+                if (add_item_line !== null)
+                {
+                    var li_element_copy = $('.btn_add_object').siblings('ul').first().children('li').first().attr('id','li_attr_'+add_item_line).clone();
+                    var ul_item_id = '#obj_attr_'+add_item_line;
+                    $(ul_item_id).append(li_element_copy);
+                    $(ul_item_id).children('li').last().children('label').attr('line_id','line_id_'+add_item_line);
+                    var li_element_last = $(ul_item_id).children('li').last().children('label');
+                    add_item_line = null;
+                    item_edit = li_element_last;
+                    $("#dialog_attr").dialog("close");
+                }
+                $(item_edit).each(function() {
+                    var _item_type = $(this).attr('type');
+                    switch (_item_type)
+                    {
+                        case 'type':
+                            $(this).attr('data', item_type);
+                            $(this).text(item_type);
+                            break;
+                        case 'id':
+                            $(this).attr('data', item_id);
+                            $(this).text(item_id);
+                            break;
+                        case 'name':
+                            $(this).attr('data', item_name);
+                            $(this).text(item_name);
+                            break;
+                        case 'allownull':
+                            $(this).attr('data', item_allownull);
+                            $(this).text(item_allownull);
+                            break;
+                        case 'validate':
+                            $(this).attr('data', item_validate);
+                            $(this).text(item_validate);
+                            break;
+                        case 'label':
+                            $(this).attr('data', item_label_obj);
+                            $(this).text(item_label_obj);
+                            break;
+                        case 'default_value':
+                            $(this).attr('data', item_default_value);
+                            $(this).text(item_default_value);
+                            break;
+                        case 'size':
+                            $(this).attr('data', item_size);
+                            $(this).text(item_size);
+                            break;
+                        case 'Event':
+                            $(this).attr('data', item_event);
+                            $(this).text(item_event);
+                            break;
+                        case 'css':
+                            $(this).attr('data', item_css);
+                            $(this).text(item_css);
+                            break;
+                        case 'view':
+                            $(this).attr('data', item_view);
+                            $(this).text(item_view);
+                            break;
+                    }
+                });
+                $("#dialog_attr").dialog("close");
+            }
+            else
+            {
+                alert('<?php echo __('Require field (*)!') ?>');
+            }
+        });
+        function check_input_require(id)
+        {
+            var length = $(id).val().length;
+            if (length > 0) {
+                return  true;
+            }
+            return false;
+        }
+        $(document).on('click', '.btn_add_object', function() {
+            var id_obj = $(this).attr('id_ul');
+            var id_ul = '#obj_attr_' + id_obj;
+            var num_li = $(id_ul).children().length;
+            if (num_li >= 2)
+            {
+                $(this).hide();
+                alert('<?php echo __('Field Max 2 Object!')?>');
+                return;
+            }
+            add_item_line = id_obj;
+            $("#dialog_attr").dialog("open");
+        });
     })(jQuery);
 
 </script>

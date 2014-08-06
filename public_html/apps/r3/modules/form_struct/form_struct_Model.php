@@ -50,6 +50,8 @@ class form_struct_Model extends Model
                 $obj_atrr['item_label'] = $tags_item->item($i)->getAttribute('label');
                 $obj_atrr['item_default_value'] = $tags_item->item($i)->getAttribute('default_value');
                 $obj_atrr['item_size'] = $tags_item->item($i)->getAttribute('size');
+                $obj_atrr['item_css'] = $tags_item->item($i)->getAttribute('css');
+                $obj_atrr['item_event'] = $tags_item->item($i)->getAttribute('Event');
                 $obj_atrr['item_view'] = $tags_item->item($i)->getAttribute('view');
                 $obj_line[] = $obj_atrr;
             }
