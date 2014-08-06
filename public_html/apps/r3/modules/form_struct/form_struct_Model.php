@@ -48,7 +48,7 @@ class form_struct_Model extends Model
                 $obj_atrr['item_allownull'] = $tags_item->item($i)->getAttribute('allownull');
                 $obj_atrr['item_validate'] = $tags_item->item($i)->getAttribute('validate');
                 $obj_atrr['item_label'] = $tags_item->item($i)->getAttribute('label');
-                $obj_atrr['item_defaul_value'] = $tags_item->item($i)->getAttribute('defaul_value');
+                $obj_atrr['item_default_value'] = $tags_item->item($i)->getAttribute('default_value');
                 $obj_atrr['item_size'] = $tags_item->item($i)->getAttribute('size');
                 $obj_atrr['item_view'] = $tags_item->item($i)->getAttribute('view');
                 $obj_line[] = $obj_atrr;
@@ -80,7 +80,7 @@ class form_struct_Model extends Model
             $line = $docDest->createElement('line');
             $line->setAttribute('label', $line_val);
             $start_item = 0;
-            $muti_item = 0;
+            $muti_item = 1;
 
             //tao item
             foreach ($arr_item as $item_key => $item_val)
@@ -94,7 +94,7 @@ class form_struct_Model extends Model
                 $arr_item_key = explode('-', $item_key);
                 if (strcmp($arr_item_key[0], $line_key) === 0)
                 {
-                    if (strpos($arr_item_key[1], '.1') > 0 && $muti_item === 0)
+                    if (strpos($arr_item_key[1], '.1') > 0 && $muti_item === 1)
                     {
                         $item = $docDest->createElement('item');
                         $line->appendChild($item);
@@ -106,6 +106,7 @@ class form_struct_Model extends Model
                     }
                 }
             }
+            $line->setAttribute('cols', $muti_item);
             $root->appendChild($line);
         }
 

@@ -65,8 +65,10 @@ class form_struct_Controller extends Controller
            // var_dump($_POST['arr_item']);
             //var_dump($this->_get_arr_line($_POST['arr_line']));
             $this->model->update_xml_form_struct($xml_file_path,$this->_get_arr_line($_POST['arr_line']),$this->_get_arr_attr_item($_POST['arr_item']));
-            
-            die;
+    }
+    
+    public function dsp_form_attr_struct(){
+        $this->view->render('form_struct_item');
     }
 
     private function _get_arr_line($array_line)
