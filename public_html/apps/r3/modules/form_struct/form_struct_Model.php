@@ -114,5 +114,14 @@ class form_struct_Model extends Model
 
         $docDest->save($xml_file_path);
     }
+    public function creat_new_xml_file($xml_file_path)
+    {
+        $docDest = new DOMDocument('1.0', 'utf-8');
+        $docDest->formatOutput = true;
+        $docDest->load($xml_file_path);
+        $tag_form = $docDest->createElement('form');
+        $docDest->appendChild($tag_form);
+        $docDest->save($xml_file_path);
+    }
 
 }

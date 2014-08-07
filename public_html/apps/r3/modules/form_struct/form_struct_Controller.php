@@ -49,11 +49,24 @@ class form_struct_Controller extends Controller
 
     public function dsp_form_struct()
     {
-        $v_record_type_code = get_request_var('sel_record_type');
-        $xml_file_path = $this->view->get_xml_config($v_record_type_code, 'form_struct');
-        $data_form_struct = $this->model->data_xml_form_struct($xml_file_path);
-        $VIEW_DATA['data_form_struct'] = $data_form_struct;
-        $this->view->render('form_struct_object_attr', $VIEW_DATA);
+        if (get_request_var('sel_record_type'))
+        {
+            $v_record_type_code = get_request_var('sel_record_type');
+            $xml_file_path = $this->view->get_xml_config($v_record_type_code, 'form_struct');
+            if ($xml_file_path === NULL)
+            {
+                $xml_file_path = SERVER_ROOT . 'apps' . DS . $this->app_name . DS . 'xml-config' . DS . $v_record_type_code;
+                if (!file_exists($xml_file_path))
+                {
+                    mkdir($xml_file_path, 0777, true);
+                }
+                $xml_file_path .= DS . $v_record_type_code . '_form_struct.xml';
+                $this->model->creat_new_xml_file($xml_file_path);
+            }
+            $data_form_struct = $this->model->data_xml_form_struct($xml_file_path);
+            $VIEW_DATA['data_form_struct'] = $data_form_struct;
+            $this->view->render('form_struct_object_attr', $VIEW_DATA);
+        }
     }
 
     public function update_form_struct()
@@ -61,11 +74,6 @@ class form_struct_Controller extends Controller
         $v_record_type_code = get_request_var('sel_record_type');
         $xml_file_path = $this->view->get_xml_config($v_record_type_code, 'form_struct');
         $this->model->update_xml_form_struct($xml_file_path, $this->_get_arr_line($_POST['arr_line']), $this->_get_arr_attr_item($_POST['arr_item']));
-    }
-
-    public function dsp_form_attr_struct()
-    {
-        $this->view->render('form_struct_item');
     }
 
     private function _get_arr_line($array_line)

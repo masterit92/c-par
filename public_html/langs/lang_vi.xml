@@ -237,5 +237,43 @@
     <text name="web link" value="Liên kết web"/>
     <text name="url" value="Địa chỉ liên kết"/>
     <text name="name" value="Tên"/>
-
+    <!--Form struct-->
+    <!--<text name="Type:" value="Kiểu nhập:"/>-->
+    <text name="Lable Line:" value="Nhãn dòng:"/>
+    <text name="Lable Line" value="Nhãn dòng"/>
+    <!--<text name="ID:" value="Mã:"/>-->
+    <!--<text name="ID" value="Mã"/>-->
+<!--    <text name="ID(*):" value="Mã(*):"/>
+    <text name="Name:" value="Tên:"/>
+    <text name="Name" value="Tên"/>
+    <text name="Name(*):" value="Tên(*):"/>
+    <text name="Allow Null:" value="Cho phép rỗng:"/>
+    <text name="Validate:" value="Kiểm tra:"/>
+    <text name="Label:" value="Nhãn:"/>
+    <text name="Default Value:" value="Giá trị mặc định:"/>
+    <text name="Default Value" value="Giá trị mặc định"/>
+    <text name="Size:" value="Kích thước:"/>
+    <text name="Size" value="Kích thước"/>
+    <text name="Css:" value="Css:"/>
+    <text name="Css" value="Css"/>
+    <text name="Event:" value="Sự kiện:"/>
+    <text name="Event" value="Sự kiện"/>
+    <text name="View:" value="Hiển thị:"/>-->
+    <text name="Edit" value="Sửa"/>
+    <text name="Remove" value="Xóa"/>
+    <text name="Add Object" value="Thêm đối tượng"/>
+    <text name="Remove Object" value="Xóa dòng"/>
+    <text name="OK" value="OK"/>
+    <text name="Cancel" value="Thoát"/>
+    <text name="(*) is field require." value="(*) là bắt buộc phải nhập."/>
+    <text name="Save success!" value="Lưu thành công!"/>
+    <text name="Save fail!" value="Lưu thất bại!"/>
+<!--    <text name="Label Object:" value="Nhãn đối tượng:"/>
+    <text name="Label Object" value="Nhãn đối tượng"/>-->
+    <text name="Add New Line" value="Thêm dòng mới"/>
+    <text name="Save" value="Lưu"/>
+    <text name="Object" value="Đối tượng"/>
+    <text name="I want delete?" value="Chắc chắn bạn muốn xóa?"/>
+    <text name="Require field (*)!" value="Hãy nhập đầy đủ (*) là bắt buộc."/>
+    <text name="Line Max 2 Object!" value="Mỗi dòng chỉ có 2 đối tượng.!"/>
 </lang>
