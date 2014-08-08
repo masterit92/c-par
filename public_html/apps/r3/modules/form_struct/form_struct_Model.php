@@ -27,6 +27,12 @@ class form_struct_Model extends Model
         parent::__construct();
     }
 
+    /***
+     * Get data file xml
+     * 
+     * @param string $xml_file_path Path file xml
+     * @return array $data_form_struc Data file xml
+     */
     public function data_xml_form_struct($xml_file_path)
     {
         $doc_xml = new DOMDocument('1.0', 'utf-8');
@@ -60,6 +66,14 @@ class form_struct_Model extends Model
         return $data_form_struct;
     }
 
+    /***
+     * Update data file xml
+     * 
+     * @param string $xml_file_path Path file xml
+     * @param string $xml_file_path Path file xml
+     * @param string $arr_line Array line data
+     * @return array $arr_item Array item data
+     */
     public function update_xml_form_struct($xml_file_path, $arr_line = null, $arr_item = null)
     {
         //Khoi tao lai xml moi

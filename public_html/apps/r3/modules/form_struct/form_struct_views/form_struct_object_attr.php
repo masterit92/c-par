@@ -36,7 +36,7 @@ $i = 0;
 
         <style>
             ul { list-style-type: none; margin: 0; padding: 0; margin-bottom: 10px; }
-            li { margin: 5px; padding: 5px; font-weight: bold !important;}
+            li { margin: 5px; padding: 5px; font-weight: bold !important; cursor: move;}
             li .label_attr{font-weight: normal !important; margin-right: 10px;}
             #coppy_li_hide{display: none}
             .block-button{text-align: center}
@@ -44,12 +44,14 @@ $i = 0;
             #dialog_attr .block label { display: inline-block; width: 140px; text-align: right; }
             .block{margin: 5px;}
             li button{border-width: 0px; cursor:pointer; font-weight: bolder; padding: 5px; background-color: #D0D0D0 ;}
-            /*            li .div_li_attr{float: left; width: 70%;display:block !important }
-                        li .div_li_btn{width: 20%; }*/
+            h3{font-family: initial; font-size: 18px; font-weight: bold; text-align: center;}
         </style>
 
     </head>
     <body>
+        <div>
+            <h3><?php echo __('Di chuyển con trỏ vào từng dòng hoặc từng đối tượng trong một dòng để kéo thả vị trí.') ?></h3>
+        </div>
         <div id="coppy_li_hide">
             <ul>
                 <li class="ui-state-default" id="li_attr_0">
@@ -294,6 +296,7 @@ $i = 0;
     {
         i = <?php echo $i ?>;
     }
+    
     jQuery(document).ready(function($) {
         //add new line
         $('#btn_add_line').on('click', function() {
@@ -317,6 +320,7 @@ $i = 0;
                 data: {arr_line: arr_line, arr_item: arr_item},
                 success: function() {
                     alert('<?php echo __('Save success!') ?>');
+                    location.reload();
                 },
                 error: function() {
                     alert('<?php echo __('Save fail!') ?>');

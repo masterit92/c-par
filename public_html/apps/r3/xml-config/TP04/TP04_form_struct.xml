@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
   <line label="Thông tin người kê khai" cols="1">
-    <item type="TextboxName" id="txtName" name="txtName" allownull="no" validate="text" label="Họ tên người làm chứng thực: " default_value="" size="60" css="" Event="ConverUpperCase('txtName',this.value)" view="true"/>
+    <item type="" id="demo" name="demo" allownull="no" validate="date" label="demo" default_value="demo" size="23" css="123" Event="123" view="true"/>
   </line>
   <line label="" cols="1">
     <item type="Textbox" id="txtDiaChi" name="txtDiaChi" allownull="yes" validate="text" label="Địa chỉ liên hệ:" default_value="" size="50" css="" Event="" view="true"/>
