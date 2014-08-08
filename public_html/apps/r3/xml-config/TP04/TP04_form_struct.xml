@@ -39,7 +39,8 @@
   <line label="" cols="1">
     <item type="Textbox" id="txtCost" name="txtCost" allownull="yes" validate="money" label="Lệ phí tạm thu:(đồng)" default_value="" size="30" css="" Event="" view="true"/>
   </line>
-  <line label="Số lượng bộ hồ sơ" cols="1">
+  <line label="Số lượng bộ hồ sơ" cols="2">
     <item type="Textbox" id="txtSoLuongBoHoSo" name="txtSoLuongBoHoSo" allownull="no" validate="number" label="Số lượng bộ hồ sơ:" default_value="" size="30" css="" Event="" view="true"/>
+    <item id="d" name="d" allownull="yes" validate="text" label="" default_value="" size="" css="" Event="" view="true"/>
   </line>
 </form>

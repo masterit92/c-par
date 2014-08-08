@@ -33,28 +33,28 @@ $i = 0;
         <script src="<?php echo SITE_ROOT; ?>public/js/jquery/jquery-ui.js"></script>
 <!--        <script src="//code.jquery.com/jquery-1.10.2.js"></script>
         <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>-->
-
-        <style>
-            ul { list-style-type: none; margin: 0; padding: 0; margin-bottom: 10px; }
-            li { margin: 5px; padding: 5px; font-weight: bold !important; cursor: move;}
-            li .label_attr{font-weight: normal !important; margin-right: 10px;}
-            #coppy_li_hide{display: none}
-            .block-button{text-align: center}
-            #dialog_attr .warning{font-family: cursive; color: #f51212}
-            #dialog_attr .block label { display: inline-block; width: 140px; text-align: right; }
-            .block{margin: 5px;}
-            li button{border-width: 0px; cursor:pointer; font-weight: bolder; padding: 5px; background-color: #D0D0D0 ;}
-            h3{font-family: initial; font-size: 18px; font-weight: bold; text-align: center;}
-        </style>
-
     </head>
+    <style>
+        ul { list-style-type: none; margin: 0; padding: 0; margin-bottom: 10px; }
+        li { margin: 5px; padding: 5px; font-weight: bold !important; }
+        li .label_attr{font-weight: normal !important; margin-right: 10px;}
+        #coppy_li_hide{display: none}
+        .block-button{text-align: center}
+        #dialog_attr .warning{font-family: cursive; color: #f51212}
+        #dialog_attr .block label { display: inline-block; width: 140px; text-align: right; }
+        .block{margin: 5px;}
+        li button{border-width: 0px; cursor:pointer; font-weight: bolder; padding: 5px; background-color: #D0D0D0 ;}
+        h3{font-family: initial; font-size: 18px; font-weight: bold; text-align: center;}
+        li:active{ background-color: #9d9393; cursor: move;}
+        li.item_li:active{background-color: #938080;cursor: move;}
+    </style>
     <body>
         <div>
             <h3><?php echo __('Di chuyển con trỏ vào từng dòng hoặc từng đối tượng trong một dòng để kéo thả vị trí.') ?></h3>
         </div>
         <div id="coppy_li_hide">
             <ul>
-                <li class="ui-state-default" id="li_attr_0">
+                <li class="ui-state-default item_li" id="li_attr_0">
                     <div class="div_li_attr">
                         <?php echo __('Type:') ?>
                         <label class="label_attr" type="type" data="" line_id=""></label>
@@ -120,7 +120,7 @@ $i = 0;
                                         <ul class="ui-sortable" id="<?php echo "obj_attr_$i" ?>">
                                             <?php $num_li = 0; ?>
                                             <?php for ($k = 0; $k < $num_atrr; $k++): ?>
-                                                <li class="ui-state-default" id="li_attr_<?php echo $i ?>">
+                                                <li class="ui-state-default item_li" id="li_attr_<?php echo $i ?>">
                                                     <div class="div_li_attr">
                                                         <?php echo __('Type:') ?>
                                                         <label class="label_attr" type="type" data="<?php echo $line[$k]['item_type'] ?>" line_id="<?php echo $line_id ?>">
@@ -186,7 +186,7 @@ $i = 0;
                         <?php endif; ?>
                     </ul>
                     <button type="button" name="btn_add_line" id="btn_add_line" value="<?php echo __('Add New Line') ?>" ><?php echo __('Add New Line') ?></button>
-                    <button type="button" name="btn_save_attr" id="btn_save_attr" value="<?php echo __('Save') ?>" ><?php echo __('Save') ?></button>
+                    <button type="button"  name="btn_save_attr" id="btn_save_attr" value="<?php echo __('Save') ?>" ><?php echo __('Save') ?></button>
                 </div>
             </form>
             <div id="dialog_attr">
@@ -296,7 +296,7 @@ $i = 0;
     {
         i = <?php echo $i ?>;
     }
-    
+
     jQuery(document).ready(function($) {
         //add new line
         $('#btn_add_line').on('click', function() {
@@ -304,11 +304,13 @@ $i = 0;
             i++;
         });
         //Dag and drop element
-        $(function() {
+        dag_drop();
+        function dag_drop() {
             $("#form_struct_object_attr ul").sortable({
-                revert: true
+                revert: true,
+                items: "> li"
             });
-        });
+        }
         //save xml
         $(document).on('click', '#btn_save_attr', function() {
             var arr_line = get_line_label();
@@ -510,6 +512,7 @@ $i = 0;
                     }
                 });
                 $("#dialog_attr").dialog("close");
+                dag_drop();
             }
             else
             {
